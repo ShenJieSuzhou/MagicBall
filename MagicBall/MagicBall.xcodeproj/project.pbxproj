@@ -14,6 +14,12 @@
 		E58A9A73274B9C19000CA124 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E58A9A71274B9C19000CA124 /* Main.storyboard */; };
 		E58A9A75274B9C1B000CA124 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E58A9A74274B9C1B000CA124 /* Assets.xcassets */; };
 		E58A9A78274B9C1B000CA124 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E58A9A76274B9C1B000CA124 /* LaunchScreen.storyboard */; };
+		E58A9A7F274CC30E000CA124 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = E58A9A7E274CC30E000CA124 /* art.scnassets */; };
+		E58A9A83274CC8EB000CA124 /* MotionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58A9A81274CC8EB000CA124 /* MotionHelper.swift */; };
+		E58A9A84274CC8EB000CA124 /* VectorOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58A9A82274CC8EB000CA124 /* VectorOperations.swift */; };
+		E58A9A89274CC912000CA124 /* chainsaw.wav in Resources */ = {isa = PBXBuildFile; fileRef = E58A9A86274CC912000CA124 /* chainsaw.wav */; };
+		E58A9A8A274CC912000CA124 /* jump.wav in Resources */ = {isa = PBXBuildFile; fileRef = E58A9A87274CC912000CA124 /* jump.wav */; };
+		E58A9A8B274CC912000CA124 /* background.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E58A9A88274CC912000CA124 /* background.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +32,12 @@
 		E58A9A72274B9C19000CA124 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E58A9A74274B9C1B000CA124 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E58A9A77274B9C1B000CA124 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E58A9A7E274CC30E000CA124 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
+		E58A9A81274CC8EB000CA124 /* MotionHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotionHelper.swift; sourceTree = "<group>"; };
+		E58A9A82274CC8EB000CA124 /* VectorOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VectorOperations.swift; sourceTree = "<group>"; };
+		E58A9A86274CC912000CA124 /* chainsaw.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = chainsaw.wav; sourceTree = "<group>"; };
+		E58A9A87274CC912000CA124 /* jump.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = jump.wav; sourceTree = "<group>"; };
+		E58A9A88274CC912000CA124 /* background.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = background.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +70,9 @@
 		E58A9A67274B9C19000CA124 /* MagicBall */ = {
 			isa = PBXGroup;
 			children = (
+				E58A9A85274CC912000CA124 /* Sounds */,
+				E58A9A80274CC8EB000CA124 /* Helper */,
+				E58A9A7E274CC30E000CA124 /* art.scnassets */,
 				E58A9A68274B9C19000CA124 /* AppDelegate.swift */,
 				E58A9A6A274B9C19000CA124 /* ShaderTypes.h */,
 				E58A9A6B274B9C19000CA124 /* Renderer.swift */,
@@ -68,6 +83,25 @@
 				E58A9A76274B9C1B000CA124 /* LaunchScreen.storyboard */,
 			);
 			path = MagicBall;
+			sourceTree = "<group>";
+		};
+		E58A9A80274CC8EB000CA124 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				E58A9A81274CC8EB000CA124 /* MotionHelper.swift */,
+				E58A9A82274CC8EB000CA124 /* VectorOperations.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		E58A9A85274CC912000CA124 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				E58A9A86274CC912000CA124 /* chainsaw.wav */,
+				E58A9A87274CC912000CA124 /* jump.wav */,
+				E58A9A88274CC912000CA124 /* background.mp3 */,
+			);
+			path = Sounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -128,8 +162,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E58A9A8A274CC912000CA124 /* jump.wav in Resources */,
 				E58A9A78274B9C1B000CA124 /* LaunchScreen.storyboard in Resources */,
+				E58A9A7F274CC30E000CA124 /* art.scnassets in Resources */,
 				E58A9A75274B9C1B000CA124 /* Assets.xcassets in Resources */,
+				E58A9A89274CC912000CA124 /* chainsaw.wav in Resources */,
+				E58A9A8B274CC912000CA124 /* background.mp3 in Resources */,
 				E58A9A73274B9C19000CA124 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -141,10 +179,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E58A9A84274CC8EB000CA124 /* VectorOperations.swift in Sources */,
 				E58A9A70274B9C19000CA124 /* Shaders.metal in Sources */,
 				E58A9A6C274B9C19000CA124 /* Renderer.swift in Sources */,
 				E58A9A6E274B9C19000CA124 /* GameViewController.swift in Sources */,
 				E58A9A69274B9C19000CA124 /* AppDelegate.swift in Sources */,
+				E58A9A83274CC8EB000CA124 /* MotionHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,8 +331,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8SRP47XFRN;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -308,6 +350,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.snailgames.MagicBall;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = UniversalSnailDev;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(TARGET_NAME)/ShaderTypes.h";
 				SWIFT_VERSION = 5.0;
@@ -320,8 +363,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8SRP47XFRN;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -337,6 +382,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.snailgames.MagicBall;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = UniversalSnailDev;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(TARGET_NAME)/ShaderTypes.h";
 				SWIFT_VERSION = 5.0;
