@@ -77,7 +77,7 @@ class GameViewController: UIViewController {
         
     }
     
-    @objc func sceneViewTapped (recognizer:UITapGestureRecognizer) {
+    @objc func sceneViewTapped (recognizer: UITapGestureRecognizer) {
         let location = recognizer.location(in: sceneView)
         
         let hitResults = sceneView.hitTest(location, options: nil)
