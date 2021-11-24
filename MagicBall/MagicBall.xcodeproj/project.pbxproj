@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		B86EAB9FBBDED0638708986C /* Pods_MagicBall.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6E5D1904797C258E58269D4 /* Pods_MagicBall.framework */; };
+		E569D6A2274E38D100BDB3C8 /* TLAnalogJoystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = E569D6A0274E38D100BDB3C8 /* TLAnalogJoystick.swift */; };
+		E569D6A3274E38D100BDB3C8 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E569D6A1274E38D100BDB3C8 /* GameScene.swift */; };
 		E58A9A69274B9C19000CA124 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58A9A68274B9C19000CA124 /* AppDelegate.swift */; };
 		E58A9A6C274B9C19000CA124 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58A9A6B274B9C19000CA124 /* Renderer.swift */; };
 		E58A9A6E274B9C19000CA124 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58A9A6D274B9C19000CA124 /* GameViewController.swift */; };
@@ -26,6 +28,8 @@
 /* Begin PBXFileReference section */
 		157DEFA153627336ADB544EE /* Pods-MagicBall.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MagicBall.debug.xcconfig"; path = "Target Support Files/Pods-MagicBall/Pods-MagicBall.debug.xcconfig"; sourceTree = "<group>"; };
 		2416A46149496BC3B10CD2C9 /* Pods-MagicBall.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MagicBall.release.xcconfig"; path = "Target Support Files/Pods-MagicBall/Pods-MagicBall.release.xcconfig"; sourceTree = "<group>"; };
+		E569D6A0274E38D100BDB3C8 /* TLAnalogJoystick.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TLAnalogJoystick.swift; sourceTree = "<group>"; };
+		E569D6A1274E38D100BDB3C8 /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		E58A9A65274B9C19000CA124 /* MagicBall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MagicBall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E58A9A68274B9C19000CA124 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E58A9A6A274B9C19000CA124 /* ShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShaderTypes.h; sourceTree = "<group>"; };
@@ -70,7 +74,6 @@
 				157DEFA153627336ADB544EE /* Pods-MagicBall.debug.xcconfig */,
 				2416A46149496BC3B10CD2C9 /* Pods-MagicBall.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -95,6 +98,7 @@
 		E58A9A67274B9C19000CA124 /* MagicBall */ = {
 			isa = PBXGroup;
 			children = (
+				E58A9A8C274E2AD3000CA124 /* JoyStick */,
 				E58A9A85274CC912000CA124 /* Sounds */,
 				E58A9A80274CC8EB000CA124 /* Helper */,
 				E58A9A7E274CC30E000CA124 /* art.scnassets */,
@@ -127,6 +131,15 @@
 				E58A9A88274CC912000CA124 /* background.mp3 */,
 			);
 			path = Sounds;
+			sourceTree = "<group>";
+		};
+		E58A9A8C274E2AD3000CA124 /* JoyStick */ = {
+			isa = PBXGroup;
+			children = (
+				E569D6A1274E38D100BDB3C8 /* GameScene.swift */,
+				E569D6A0274E38D100BDB3C8 /* TLAnalogJoystick.swift */,
+			);
+			path = JoyStick;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -250,8 +263,10 @@
 			files = (
 				E58A9A84274CC8EB000CA124 /* VectorOperations.swift in Sources */,
 				E58A9A70274B9C19000CA124 /* Shaders.metal in Sources */,
+				E569D6A3274E38D100BDB3C8 /* GameScene.swift in Sources */,
 				E58A9A6C274B9C19000CA124 /* Renderer.swift in Sources */,
 				E58A9A6E274B9C19000CA124 /* GameViewController.swift in Sources */,
+				E569D6A2274E38D100BDB3C8 /* TLAnalogJoystick.swift in Sources */,
 				E58A9A69274B9C19000CA124 /* AppDelegate.swift in Sources */,
 				E58A9A83274CC8EB000CA124 /* MotionHelper.swift in Sources */,
 			);
@@ -411,6 +426,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = metal;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -444,6 +460,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = metal;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

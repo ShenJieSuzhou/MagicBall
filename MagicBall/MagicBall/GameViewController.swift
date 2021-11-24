@@ -23,7 +23,7 @@ class GameViewController: UIViewController {
     var motionForce = SCNVector3(0, 0, 0)
     
     var sounds:[String:SCNAudioSource] = [:]
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -34,12 +34,15 @@ class GameViewController: UIViewController {
     
     func setupScene(){
         sceneView = self.view as! SCNView
+        sceneView.frame = self.view.bounds
         sceneView.delegate = self
         
-        //sceneView.allowsCameraControl = true
+//        sceneView.allowsCameraControl = true
         scene = SCNScene(named: "art.scnassets/MainScene.scn")
         sceneView.scene = scene
         
+        let joyStick = GameScene(size: self.view.bounds.size)
+        sceneView.overlaySKScene = joyStick
         scene.physicsWorld.contactDelegate = self
         
         let tapRecognizer = UITapGestureRecognizer()
@@ -105,6 +108,34 @@ class GameViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Release any cached data, images, etc that aren't in use.
+    }
+
+    
+//    override func didMove(toParent parent: UIViewController?) {
+////        scene.physicsBody = SKPhysicsBody(edgeLoopFrom: self.view.frame)
+//
+//        let moveJoystickHiddenArea = TLAnalogJoystickHiddenArea(rect: CGRect(x: 0, y: 0, width: self.view.frame.midX, height: self.view.frame.height))
+//        moveJoystickHiddenArea.joystick = moveJoystick
+//        moveJoystick.isMoveable = true
+//        scene.addChild(moveJoystickHiddenArea)
+//    }
+    
+   // MARK: touch events
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+    }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
     }
 }
 
