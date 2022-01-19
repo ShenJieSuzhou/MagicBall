@@ -13,12 +13,13 @@ class GameScene: SKScene {
     private var selected: Bool = false
     private var joinButton: SKSpriteNode!
     private var nodeArray: [SKSpriteNode] = []
+//    private var node: SKSpriteNode!
     
     let BallCategory   : UInt32 = 0x1 << 0
     let BorderCategory : UInt32 = 0x1 << 4
     
     var fire = SKEmitterNode(fileNamed: "Fire")
-    
+    var ball = SKSpriteNode()
     let colors = [UIColor.red, UIColor.green, UIColor.blue, UIColor.brown, UIColor.cyan, UIColor.orange]
     
     let nodeNames = ["qq", "ww", "ss", "rr", "tt", "yy", "uu"]
@@ -34,6 +35,9 @@ class GameScene: SKScene {
         screenBorder.friction = 0 /// So doesn't slow down the objects that collide
         screenBorder.restitution = 1 /// So the ball bounces when hitting the screen borders
         self.physicsBody = screenBorder
+        
+        ball = self.childNode(withName: "ball") as! SKSpriteNode
+        ball.physicsBody?.applyImpulse(CGVector(dx: 100, dy: 100))
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -96,11 +100,9 @@ class GameScene: SKScene {
         let node = SKSpriteNode(color: color, size: CGSize(width: 30, height: 30))
         node.name = id
         node.position = CGPoint(x: -100, y: 100)
-        node.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         node.physicsBody = SKPhysicsBody(circleOfRadius: 30)
         node.physicsBody?.isDynamic = true
         node.physicsBody?.restitution = 1
-        node.physicsBody?.applyImpulse(CGVector(dx: 100, dy: 20))
         
         fire?.targetNode = self
         fire?.particleColorBlendFactor = 1.0
@@ -111,6 +113,7 @@ class GameScene: SKScene {
         self.addChild(node)
         nodeArray.append(node)
         
+        node.physicsBody?.applyImpulse(CGVector(dx: 100, dy: 50))
         return true
     }
     
