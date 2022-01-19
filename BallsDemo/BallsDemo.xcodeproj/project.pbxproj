@@ -15,6 +15,9 @@
 		E5A7567727915C900008CCAF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5A7567527915C900008CCAF /* Main.storyboard */; };
 		E5A7567927915C920008CCAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5A7567827915C920008CCAF /* Assets.xcassets */; };
 		E5A7567C27915C920008CCAF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5A7567A27915C920008CCAF /* LaunchScreen.storyboard */; };
+		E5E286342797EA3600211429 /* Fire.sks in Resources */ = {isa = PBXBuildFile; fileRef = E5E286322797EA3600211429 /* Fire.sks */; };
+		E5E286352797EA3600211429 /* SharpMagic.sks in Resources */ = {isa = PBXBuildFile; fileRef = E5E286332797EA3600211429 /* SharpMagic.sks */; };
+		E5E286372797EDCC00211429 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = E5E286362797EDCC00211429 /* spark.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +30,9 @@
 		E5A7567627915C900008CCAF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E5A7567827915C920008CCAF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E5A7567B27915C920008CCAF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E5E286322797EA3600211429 /* Fire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Fire.sks; sourceTree = "<group>"; };
+		E5E286332797EA3600211429 /* SharpMagic.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SharpMagic.sks; sourceTree = "<group>"; };
+		E5E286362797EDCC00211429 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +65,9 @@
 		E5A7566A27915C900008CCAF /* BallsDemo */ = {
 			isa = PBXGroup;
 			children = (
+				E5E286362797EDCC00211429 /* spark.png */,
+				E5E286322797EA3600211429 /* Fire.sks */,
+				E5E286332797EA3600211429 /* SharpMagic.sks */,
 				E5A7566B27915C900008CCAF /* AppDelegate.swift */,
 				E5A7566D27915C900008CCAF /* GameScene.sks */,
 				E5A7566F27915C900008CCAF /* Actions.sks */,
@@ -131,7 +140,10 @@
 			files = (
 				E5A7567727915C900008CCAF /* Main.storyboard in Resources */,
 				E5A7566E27915C900008CCAF /* GameScene.sks in Resources */,
+				E5E286352797EA3600211429 /* SharpMagic.sks in Resources */,
 				E5A7567927915C920008CCAF /* Assets.xcassets in Resources */,
+				E5E286342797EA3600211429 /* Fire.sks in Resources */,
+				E5E286372797EDCC00211429 /* spark.png in Resources */,
 				E5A7567C27915C920008CCAF /* LaunchScreen.storyboard in Resources */,
 				E5A7567027915C900008CCAF /* Actions.sks in Resources */,
 			);
