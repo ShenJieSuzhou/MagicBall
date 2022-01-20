@@ -8,17 +8,28 @@
 import SpriteKit
 import GameplayKit
 
+struct uMsg {
+    var type: Int
+    var x: Int
+    var y: Int
+    var z: Int
+}
+
+
 class GameScene: SKScene {
     private var lastTouch: CGPoint? = nil
     private var selected: Bool = false
     private var joinButton: SKSpriteNode!
+    private var connectButton: SKSpriteNode!
     private var nodeArray: [SKSpriteNode] = []
-//    private var node: SKSpriteNode!
+    private var clientSocket: OKNetManager!
     
     let BallCategory   : UInt32 = 0x1 << 0
     let BorderCategory : UInt32 = 0x1 << 4
     
-    var fire = SKEmitterNode(fileNamed: "Fire")
+    let host: String = "10.200.22.126"
+    let port: UInt16 = 5555
+    
     var ball = SKSpriteNode()
     let colors = [UIColor.red, UIColor.green, UIColor.blue, UIColor.brown, UIColor.cyan, UIColor.orange]
     
@@ -26,9 +37,15 @@ class GameScene: SKScene {
     var count = 0
     
     override func didMove(to view: SKView) {
+        
+        self.clientSocket = OKNetManager()
+        self.clientSocket.delegate = self
+        
         // 添加按钮
         joinButton = self.childNode(withName: "JoinButton") as? SKSpriteNode
         joinButton?.isUserInteractionEnabled = true
+        connectButton = self.childNode(withName: "ConnectButton") as? SKSpriteNode
+        connectButton.isUserInteractionEnabled = true
         
         // 边界碰撞
         let screenBorder = SKPhysicsBody(edgeLoopFrom: self.frame)
@@ -63,7 +80,11 @@ class GameScene: SKScene {
         
         for touch: AnyObject in touches {
             let location = touch.location(in: self)
-            if self.joinButton.contains(location){
+            
+            if self.connectButton.contains(location) {
+                self.clientSocket.connect(host: host, port: port)
+                
+            } else if self.joinButton.contains(location){
                 print("+++++++++ generate new node +++++++++")
                 let random = Int(arc4random_uniform(UInt32(self.colors.count)))
                 count = count + 1
@@ -104,6 +125,7 @@ class GameScene: SKScene {
         node.physicsBody?.isDynamic = true
         node.physicsBody?.restitution = 1
         
+        let fire = SKEmitterNode(fileNamed: "Fire")
         fire?.targetNode = self
         fire?.particleColorBlendFactor = 1.0
         fire?.particleColorSequence = nil
@@ -142,4 +164,31 @@ class GameScene: SKScene {
 //          return speedFactor
 //        }
 //      }
+}
+
+extension GameScene: OKNetManagerDelegate {
+
+    func connectSuccess() {
+        
+    }
+    
+    
+    func connectFailed() {
+        
+    }
+    
+    // 根据哈希表得到对应的线程更新坐标
+    func updateWithPosition(pos: CGPoint) {
+        
+    }
+    
+    // 新开一个线程并加入哈希表
+    func newClientJoinIn() {
+        
+    }
+    
+    // 客户端离开
+    func clientLeave() {
+        
+    }
 }

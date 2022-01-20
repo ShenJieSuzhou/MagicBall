@@ -3,10 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 53;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3BEBF0ACDA622C004F004207 /* Pods_BallsDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B9016CD04F89505C0B68175 /* Pods_BallsDemo.framework */; };
+		E5901BC927990C0000D37E38 /* OKNetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5901BC827990C0000D37E38 /* OKNetManager.swift */; };
 		E5A7566C27915C900008CCAF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7566B27915C900008CCAF /* AppDelegate.swift */; };
 		E5A7566E27915C900008CCAF /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = E5A7566D27915C900008CCAF /* GameScene.sks */; };
 		E5A7567027915C900008CCAF /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = E5A7566F27915C900008CCAF /* Actions.sks */; };
@@ -21,6 +23,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3F844E1FB0B1FB2D2D94B268 /* Pods-BallsDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BallsDemo.release.xcconfig"; path = "Target Support Files/Pods-BallsDemo/Pods-BallsDemo.release.xcconfig"; sourceTree = "<group>"; };
+		4B9016CD04F89505C0B68175 /* Pods_BallsDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BallsDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7717EB8D3BEF80C2ADE177F0 /* Pods-BallsDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BallsDemo.debug.xcconfig"; path = "Target Support Files/Pods-BallsDemo/Pods-BallsDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		E5901BC827990C0000D37E38 /* OKNetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OKNetManager.swift; sourceTree = "<group>"; };
 		E5A7566827915C900008CCAF /* BallsDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BallsDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5A7566B27915C900008CCAF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E5A7566D27915C900008CCAF /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -40,17 +46,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BEBF0ACDA622C004F004207 /* Pods_BallsDemo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		021D356AEA8AE4C0764C20AE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4B9016CD04F89505C0B68175 /* Pods_BallsDemo.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E5A7565F27915C900008CCAF = {
 			isa = PBXGroup;
 			children = (
 				E5A7566A27915C900008CCAF /* BallsDemo */,
 				E5A7566927915C900008CCAF /* Products */,
+				FB7EE275134618F6633E4B32 /* Pods */,
+				021D356AEA8AE4C0764C20AE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -65,6 +82,7 @@
 		E5A7566A27915C900008CCAF /* BallsDemo */ = {
 			isa = PBXGroup;
 			children = (
+				E5EE8A95279907D00067B022 /* Net */,
 				E5E286362797EDCC00211429 /* spark.png */,
 				E5E286322797EA3600211429 /* Fire.sks */,
 				E5E286332797EA3600211429 /* SharpMagic.sks */,
@@ -80,6 +98,23 @@
 			path = BallsDemo;
 			sourceTree = "<group>";
 		};
+		E5EE8A95279907D00067B022 /* Net */ = {
+			isa = PBXGroup;
+			children = (
+				E5901BC827990C0000D37E38 /* OKNetManager.swift */,
+			);
+			path = Net;
+			sourceTree = "<group>";
+		};
+		FB7EE275134618F6633E4B32 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7717EB8D3BEF80C2ADE177F0 /* Pods-BallsDemo.debug.xcconfig */,
+				3F844E1FB0B1FB2D2D94B268 /* Pods-BallsDemo.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -87,9 +122,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E5A7567F27915C920008CCAF /* Build configuration list for PBXNativeTarget "BallsDemo" */;
 			buildPhases = (
+				82B401D6AEEE4509CA4B2E9A /* [CP] Check Pods Manifest.lock */,
 				E5A7566427915C900008CCAF /* Sources */,
 				E5A7566527915C900008CCAF /* Frameworks */,
 				E5A7566627915C900008CCAF /* Resources */,
+				27AF07714BCF19F9F0A9E593 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -116,7 +153,7 @@
 				};
 			};
 			buildConfigurationList = E5A7566327915C900008CCAF /* Build configuration list for PBXProject "BallsDemo" */;
-			compatibilityVersion = "Xcode 13.0";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -151,12 +188,56 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		27AF07714BCF19F9F0A9E593 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BallsDemo/Pods-BallsDemo-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/CocoaAsyncSocket/CocoaAsyncSocket.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaAsyncSocket.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BallsDemo/Pods-BallsDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		82B401D6AEEE4509CA4B2E9A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BallsDemo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		E5A7566427915C900008CCAF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				E5A7567227915C900008CCAF /* GameScene.swift in Sources */,
+				E5901BC927990C0000D37E38 /* OKNetManager.swift in Sources */,
 				E5A7567427915C900008CCAF /* GameViewController.swift in Sources */,
 				E5A7566C27915C900008CCAF /* AppDelegate.swift in Sources */,
 			);
@@ -302,6 +383,7 @@
 		};
 		E5A7568027915C920008CCAF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7717EB8D3BEF80C2ADE177F0 /* Pods-BallsDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -332,6 +414,7 @@
 		};
 		E5A7568127915C920008CCAF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3F844E1FB0B1FB2D2D94B268 /* Pods-BallsDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
