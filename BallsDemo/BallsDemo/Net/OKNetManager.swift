@@ -8,11 +8,13 @@
 import UIKit
 import CocoaAsyncSocket
 
-protocol OKNetManagerDelegate {
+protocol OKNetManagerConnDelegate {
     func connectSuccess()
     
     func connectFailed()
-    
+}
+
+protocol OKNetManagerStateDelegate {
     func updateWithPosition(pos: CGPoint)
     
     func newClientJoinIn()
@@ -23,8 +25,15 @@ protocol OKNetManagerDelegate {
 
 class OKNetManager: NSObject {
 
+    // 全局变量
+    static var sharedManager: OKNetManager = {
+        let shared = OKNetManager()
+        return shared
+    }()
+    
     private var clientSocket: GCDAsyncSocket!
-    var delegate: OKNetManagerDelegate!
+    var connDelegate: OKNetManagerConnDelegate!
+    var stateDelegate: OKNetManagerStateDelegate!
         
     // 连接服务器
     func connect(host: String, port: UInt16) -> Void {
@@ -56,22 +65,22 @@ extension OKNetManager: GCDAsyncSocketDelegate {
     func socket(_ sock: GCDAsyncSocket, didConnectToHost host: String, port: UInt16) {
         print("Connect to server success")
         // 回调 生成 node
-        delegate.connectSuccess()
+        connDelegate.connectSuccess()
     }
     
     // 与服务器断开连接
     func socketDidDisconnect(_ sock: GCDAsyncSocket, withError err: Error?) {
         // 回调 pop alert
-        delegate.connectFailed()
+        connDelegate.connectFailed()
     }
     
     // 处理服务器发来的消息
     func socket(_ sock: GCDAsyncSocket, didRead data: Data, withTag tag: Int) {
         // 回调 update position
-        delegate.updateWithPosition(pos: CGPoint(x: 0, y: 0))
+        stateDelegate.updateWithPosition(pos: CGPoint(x: 0, y: 0))
         // 新加入了客户端
-        delegate.newClientJoinIn()
+        stateDelegate.newClientJoinIn()
         // 客户端离开
-        delegate.clientLeave()
+        stateDelegate.clientLeave()
     }
 }

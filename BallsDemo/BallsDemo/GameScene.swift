@@ -22,13 +22,10 @@ class GameScene: SKScene {
     private var joinButton: SKSpriteNode!
     private var connectButton: SKSpriteNode!
     private var nodeArray: [SKSpriteNode] = []
-    private var clientSocket: OKNetManager!
+    
     
     let BallCategory   : UInt32 = 0x1 << 0
     let BorderCategory : UInt32 = 0x1 << 4
-    
-    let host: String = "10.200.22.126"
-    let port: UInt16 = 5555
     
     var ball = SKSpriteNode()
     let colors = [UIColor.red, UIColor.green, UIColor.blue, UIColor.brown, UIColor.cyan, UIColor.orange]
@@ -37,9 +34,8 @@ class GameScene: SKScene {
     var count = 0
     
     override func didMove(to view: SKView) {
-        
-        self.clientSocket = OKNetManager()
-        self.clientSocket.delegate = self
+        // State 回调
+        OKNetManager.sharedManager.stateDelegate = self
         
         // 添加按钮
         joinButton = self.childNode(withName: "JoinButton") as? SKSpriteNode
@@ -82,7 +78,7 @@ class GameScene: SKScene {
             let location = touch.location(in: self)
             
             if self.connectButton.contains(location) {
-                self.clientSocket.connect(host: host, port: port)
+                
                 
             } else if self.joinButton.contains(location){
                 print("+++++++++ generate new node +++++++++")
@@ -166,17 +162,7 @@ class GameScene: SKScene {
 //      }
 }
 
-extension GameScene: OKNetManagerDelegate {
-
-    func connectSuccess() {
-        
-    }
-    
-    
-    func connectFailed() {
-        
-    }
-    
+extension GameScene: OKNetManagerStateDelegate {
     // 根据哈希表得到对应的线程更新坐标
     func updateWithPosition(pos: CGPoint) {
         

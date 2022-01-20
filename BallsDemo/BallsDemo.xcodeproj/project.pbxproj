@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3BEBF0ACDA622C004F004207 /* Pods_BallsDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B9016CD04F89505C0B68175 /* Pods_BallsDemo.framework */; };
 		E5901BC927990C0000D37E38 /* OKNetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5901BC827990C0000D37E38 /* OKNetManager.swift */; };
+		E5901BCB2799467900D37E38 /* BallBoxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5901BCA2799467900D37E38 /* BallBoxViewController.swift */; };
 		E5A7566C27915C900008CCAF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7566B27915C900008CCAF /* AppDelegate.swift */; };
 		E5A7566E27915C900008CCAF /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = E5A7566D27915C900008CCAF /* GameScene.sks */; };
 		E5A7567027915C900008CCAF /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = E5A7566F27915C900008CCAF /* Actions.sks */; };
@@ -27,6 +28,7 @@
 		4B9016CD04F89505C0B68175 /* Pods_BallsDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BallsDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7717EB8D3BEF80C2ADE177F0 /* Pods-BallsDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BallsDemo.debug.xcconfig"; path = "Target Support Files/Pods-BallsDemo/Pods-BallsDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		E5901BC827990C0000D37E38 /* OKNetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OKNetManager.swift; sourceTree = "<group>"; };
+		E5901BCA2799467900D37E38 /* BallBoxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallBoxViewController.swift; sourceTree = "<group>"; };
 		E5A7566827915C900008CCAF /* BallsDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BallsDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5A7566B27915C900008CCAF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E5A7566D27915C900008CCAF /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 				E5A7566F27915C900008CCAF /* Actions.sks */,
 				E5A7567127915C900008CCAF /* GameScene.swift */,
 				E5A7567327915C900008CCAF /* GameViewController.swift */,
+				E5901BCA2799467900D37E38 /* BallBoxViewController.swift */,
 				E5A7567527915C900008CCAF /* Main.storyboard */,
 				E5A7567827915C920008CCAF /* Assets.xcassets */,
 				E5A7567A27915C920008CCAF /* LaunchScreen.storyboard */,
@@ -236,6 +239,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5901BCB2799467900D37E38 /* BallBoxViewController.swift in Sources */,
 				E5A7567227915C900008CCAF /* GameScene.swift in Sources */,
 				E5901BC927990C0000D37E38 /* OKNetManager.swift in Sources */,
 				E5A7567427915C900008CCAF /* GameViewController.swift in Sources */,
