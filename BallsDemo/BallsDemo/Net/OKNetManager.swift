@@ -81,16 +81,72 @@ extension OKNetManager: GCDAsyncSocketDelegate {
     
     // 处理服务器发来的消息
     func socket(_ sock: GCDAsyncSocket, didRead data: Data, withTag tag: Int) {
+        print("--- Data Recv ---")
         
-        let msg = String(data: data, encoding: String.Encoding.utf8)
-        print("recv data:\(msg)")
+        let bytes: [UInt8]! = [UInt8](data)
+        if bytes == nil || bytes.count < 4{
+            self.clientSocket.readData(withTimeout: -1, tag: 0)
+            return
+        }
         
-//        // 回调 update position
-//        stateDelegate.updateWithPosition(pos: CGPoint(x: 0, y: 0))
-//        // 新加入了客户端
-//        stateDelegate.newClientJoinIn()
-//        // 客户端离开
-//        stateDelegate.clientLeave()
+        // 数据总长度
+        let totalLength = bytes.count
+        
+        var type: UInt32 = 0
+        var length: UInt32 = 0
+        var readLength: Int = 0
+        
+        var typeBytesArr: [UInt8] = Array(bytes[0..<4])
+        let tData = Data.init(typeBytesArr)
+        type = UInt32(bigEndian: tData.withUnsafeBytes { $0.load(as: UInt32.self) })
+        readLength += typeBytesArr.count
+        
+        if readLength + 4 < totalLength {
+            var lengthBytesArr: [UInt8] = Array(bytes[4..<8])
+            let lenData = Data.init(lengthBytesArr)
+            length = UInt32(bigEndian: lenData.withUnsafeBytes { $0.load(as: UInt32.self) })
+            readLength += lengthBytesArr.count
+        }
+        
+        var bodyBytesArr:[UInt8] = Array(bytes[8..<totalLength])
+        readLength += bodyBytesArr.count
+        
+        if readLength == totalLength {
+            if type == 200 {
+                let message: String = String(data: Data(bodyBytesArr), encoding: .utf8)!
+                print(message)
+
+            } else if type == 201 {
+                print(bodyBytesArr)
+            }
+        }
+        
+//        for byte in bytes {
+//            if i < 4 {
+//                typeBytesArr.append(byte)
+//            } else {
+//                let tData = Data.init(typeBytesArr)
+//                type = UInt32(bigEndian: tData.withUnsafeBytes { $0.load(as: UInt32.self) })
+//                print(type)
+//            }
+//
+//            if i >= 4 && i < 8 {
+//                lengthBytesArr.append(byte)
+//            } else {
+//                let lenData = Data.init(lengthBytesArr)
+//                length = UInt32(bigEndian: lenData.withUnsafeBytes { $0.load(as: UInt32.self) })
+//            }
+//
+//            if i >= 8 && i < length + 7 {
+//                bodyBytesArr.append(byte)
+//            }
+//
+//            i = i + 1
+//        }
+        
+        
+        
+        
         self.clientSocket.readData(withTimeout: -1, tag: 0)
     }
     
