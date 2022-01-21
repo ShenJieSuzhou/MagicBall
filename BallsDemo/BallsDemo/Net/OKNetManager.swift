@@ -32,6 +32,9 @@ class OKNetManager: NSObject {
     }()
     
     private var clientSocket: GCDAsyncSocket!
+    //数据缓冲
+    fileprivate var receiveData: Data = Data.init();
+    
     var connDelegate: OKNetManagerConnDelegate!
     var stateDelegate: OKNetManagerStateDelegate!
         
@@ -64,6 +67,7 @@ extension OKNetManager: GCDAsyncSocketDelegate {
     // 连接服务器成功
     func socket(_ sock: GCDAsyncSocket, didConnectToHost host: String, port: UInt16) {
         print("Connect to server success")
+        self.clientSocket.readData(withTimeout: -1, tag: 0)
         // 回调 生成 node
         connDelegate.connectSuccess()
     }
@@ -71,16 +75,30 @@ extension OKNetManager: GCDAsyncSocketDelegate {
     // 与服务器断开连接
     func socketDidDisconnect(_ sock: GCDAsyncSocket, withError err: Error?) {
         // 回调 pop alert
+        print("Lost connection with server")
         connDelegate.connectFailed()
     }
     
     // 处理服务器发来的消息
     func socket(_ sock: GCDAsyncSocket, didRead data: Data, withTag tag: Int) {
-        // 回调 update position
-        stateDelegate.updateWithPosition(pos: CGPoint(x: 0, y: 0))
-        // 新加入了客户端
-        stateDelegate.newClientJoinIn()
-        // 客户端离开
-        stateDelegate.clientLeave()
+        
+        let msg = String(data: data, encoding: String.Encoding.utf8)
+        print("recv data:\(msg)")
+        
+//        // 回调 update position
+//        stateDelegate.updateWithPosition(pos: CGPoint(x: 0, y: 0))
+//        // 新加入了客户端
+//        stateDelegate.newClientJoinIn()
+//        // 客户端离开
+//        stateDelegate.clientLeave()
+        self.clientSocket.readData(withTimeout: -1, tag: 0)
+    }
+    
+    func socket(_ sock: GCDAsyncSocket, didReceive trust: SecTrust, completionHandler: @escaping (Bool) -> Void) {
+        
+    }
+ 
+    func socket(_ sock: GCDAsyncSocket, didWriteDataWithTag tag: Int) {
+        print("write data")
     }
 }

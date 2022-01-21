@@ -78,7 +78,7 @@ class GameScene: SKScene {
             let location = touch.location(in: self)
             
             if self.connectButton.contains(location) {
-                
+                OKNetManager.sharedManager.disconnect()
                 
             } else if self.joinButton.contains(location){
                 print("+++++++++ generate new node +++++++++")
@@ -104,8 +104,6 @@ class GameScene: SKScene {
         //print("position: x = \(self.ball.position.x)  y = \(self.ball.position.y)")
         // socket 发送坐标
     }
-    
-    
     
     /// 生成新的节点
     /// - Parameters:

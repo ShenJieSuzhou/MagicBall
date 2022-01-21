@@ -64,6 +64,9 @@ extension GameViewController: OKNetManagerConnDelegate {
     
     
     func connectFailed() {
-        
+        let alert = UIAlertController(title: "Alert", message: "lost connection with server", preferredStyle: .alert)
+        self.present(alert, animated: false) {
+            
+        }
     }
 }
