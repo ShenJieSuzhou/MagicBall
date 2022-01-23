@@ -12,12 +12,19 @@ import GameplayKit
 class GameViewController: UIViewController {
     
     private var clientSocket: OKNetManager!
-    let host: String = "10.200.22.126"
+    let host: String = "192.168.0.119"
     let port: UInt16 = 5555
     
     override func viewDidLoad() {
         super.viewDidLoad()
         OKNetManager.sharedManager.connDelegate = self
+        
+        let typeBytesArr: [UInt8] = [224, 38, 94, 0]
+        let tData = Data.init(typeBytesArr)
+        // 消息类型 200：新客户端连接  201: 坐标数据
+        let type = UInt32(littleEndian: tData.withUnsafeBytes { $0.load(as: UInt32.self) })
+
+        print(type)
     }
 
     override var shouldAutorotate: Bool {
