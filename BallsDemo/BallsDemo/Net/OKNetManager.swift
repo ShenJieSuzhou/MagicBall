@@ -127,51 +127,6 @@ extension OKNetManager: GCDAsyncSocketDelegate {
         // 从缓存中移除数据
         self.receiveData.removeSubrange(0..<length+4)
         self.clientSocket.readData(withTimeout: -1, tag: 0)
-        
-//        readLength += lengthBytesArr.count
-//
-//        if readLength + 4 < totalLength {
-//            var typeBytesArr: [UInt8] = Array(bytes[4..<8])
-//            let lenData = Data.init(lengthBytesArr)
-//            length = UInt32(bigEndian: lenData.withUnsafeBytes { $0.load(as: UInt32.self) })
-//            readLength += lengthBytesArr.count
-//        }
-//
-//        var bodyBytesArr:[UInt8] = Array(bytes[8..<totalLength])
-//        readLength += bodyBytesArr.count
-//
-//        if readLength == totalLength {
-//            if type == 200 {
-//                let message: String = String(data: Data(bodyBytesArr), encoding: .utf8)!
-//                print(message)
-//
-//            } else if type == 201 {
-//                print(bodyBytesArr)
-//            }
-//        }
-        
-//        for byte in bytes {
-//            if i < 4 {
-//                typeBytesArr.append(byte)
-//            } else {
-//                let tData = Data.init(typeBytesArr)
-//                type = UInt32(bigEndian: tData.withUnsafeBytes { $0.load(as: UInt32.self) })
-//                print(type)
-//            }
-//
-//            if i >= 4 && i < 8 {
-//                lengthBytesArr.append(byte)
-//            } else {
-//                let lenData = Data.init(lengthBytesArr)
-//                length = UInt32(bigEndian: lenData.withUnsafeBytes { $0.load(as: UInt32.self) })
-//            }
-//
-//            if i >= 8 && i < length + 7 {
-//                bodyBytesArr.append(byte)
-//            }
-//
-//            i = i + 1
-//        }
     }
     
     func socket(_ sock: GCDAsyncSocket, didReceive trust: SecTrust, completionHandler: @escaping (Bool) -> Void) {

@@ -12,7 +12,7 @@ import GameplayKit
 class GameViewController: UIViewController {
     
     private var clientSocket: OKNetManager!
-    let host: String = "192.168.0.119"
+    let host: String = "10.200.22.126"
     let port: UInt16 = 5555
     
     override func viewDidLoad() {
