@@ -9,14 +9,17 @@ import SpriteKit
 import GameplayKit
 
 struct uMsg {
-    var type: Int
-    var x: Int
-    var y: Int
-    var z: Int
+    var len: Int32
+    var accountID: Int32
+    var type: Int32
+    var x: Float
+    var y: Float
+    var z: Float
 }
 
-
 class GameScene: SKScene {
+    private var account: Int32?
+    
     private var lastTouch: CGPoint? = nil
     private var selected: Bool = false
     private var joinButton: SKSpriteNode!
@@ -35,6 +38,7 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
         // State 回调
+        self.account = 10086
         OKNetManager.sharedManager.stateDelegate = self
         
         // 添加按钮
@@ -49,8 +53,8 @@ class GameScene: SKScene {
         screenBorder.restitution = 1 /// So the ball bounces when hitting the screen borders
         self.physicsBody = screenBorder
         
-        ball = self.childNode(withName: "ball") as! SKSpriteNode
-        ball.physicsBody?.applyImpulse(CGVector(dx: 100, dy: 100))
+//        ball = self.childNode(withName: "ball") as! SKSpriteNode
+//        ball.physicsBody?.applyImpulse(CGVector(dx: 100, dy: 100))
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -101,8 +105,20 @@ class GameScene: SKScene {
     
     
     override func update(_ currentTime: TimeInterval) {
-        //print("position: x = \(self.ball.position.x)  y = \(self.ball.position.y)")
+        if nodeArray.count == 0 {
+            return
+        }
+        let node = nodeArray.first!
+        print("position: x = \(node.position.x)  y = \(node.position.y)")
         // socket 发送坐标
+        // 消息总长度  总长度 + 账号 + 消息类型 + 坐标x + 坐标y + 坐标z
+        let length: Int32 = Int32(MemoryLayout<Int32>.stride + MemoryLayout<Int32>.stride + MemoryLayout<Int32>.stride + MemoryLayout<CGFloat>.stride * 3)
+
+        var msg: uMsg = uMsg(len: length, accountID: self.account!, type: Int32(201), x: Float(node.position.x), y: Float(node.position.y), z: Float(0.0))
+        
+        let msgData: Data = Data(bytes: &msg, count: MemoryLayout<uMsg>.stride)
+        
+        OKNetManager.sharedManager.sendData(content: msgData)
     }
     
     /// 生成新的节点
