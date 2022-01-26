@@ -7,32 +7,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "026E8E10-9A72-44C0-B31D-6ED4463131C5"
+            uuid = "76B66E83-9C13-4B89-9DE3-B08B6FF4B7AD"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BallsDemo/GameScene.swift"
+            filePath = "BallsDemo/GameViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
-            landmarkName = "touchesEnded(_:with:)"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D3FDC498-696B-4D89-A4A6-785C5D2A9C3B"
+            uuid = "1BBA9633-5C87-4227-88D2-B20213C08F20"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BallsDemo/GameScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "111"
-            endingLineNumber = "111"
-            landmarkName = "update(_:)"
+            startingLineNumber = "151"
+            endingLineNumber = "151"
+            landmarkName = "sendPositionToFriends(x:y:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

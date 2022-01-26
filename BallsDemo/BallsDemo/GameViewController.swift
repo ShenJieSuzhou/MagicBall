@@ -19,12 +19,18 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         OKNetManager.sharedManager.connDelegate = self
         
-        let typeBytesArr: [UInt8] = [224, 38, 94, 0]
-        let tData = Data.init(typeBytesArr)
-        // 消息类型 200：新客户端连接  201: 坐标数据
-        let type = UInt32(littleEndian: tData.withUnsafeBytes { $0.load(as: UInt32.self) })
+        let len1 = MemoryLayout<Float>.stride
+        let len2 = MemoryLayout<CGFloat>.stride
 
-        print(type)
+        //        let typeBytesArr: [UInt8] = [224, 38, 94, 0]
+//        let tData = Data.init(typeBytesArr)
+//        // 消息类型 200：新客户端连接  201: 坐标数据
+//        let type = UInt32(littleEndian: tData.withUnsafeBytes { $0.load(as: UInt32.self) })
+//
+//        print(type)
+        
+//        var len: Int = MemoryLayout<UInt>.stride
+//        print(len)
     }
 
     override var shouldAutorotate: Bool {

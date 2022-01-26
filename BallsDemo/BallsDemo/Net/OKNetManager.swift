@@ -67,6 +67,7 @@ extension OKNetManager: GCDAsyncSocketDelegate {
     // 连接服务器成功
     func socket(_ sock: GCDAsyncSocket, didConnectToHost host: String, port: UInt16) {
         print("Connect to server success")
+        
         self.clientSocket.readData(withTimeout: -1, tag: 0)
         // 回调 生成 node
         connDelegate.connectSuccess()
