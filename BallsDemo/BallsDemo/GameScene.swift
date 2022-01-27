@@ -161,13 +161,13 @@ class GameScene: SKScene {
         
         let nameData = self.account!.data(using: .utf8)
         
-        var xPos = CGFloat(x)
-        let xPosData = Data(bytes: &xPos, count: MemoryLayout<CGFloat>.stride)
+        var xPos = Double(x)
+        let xPosData = Data(bytes: &xPos, count: MemoryLayout<Double>.stride)
         
-        var yPos = CGFloat(y)
-        let yPosData = Data(bytes: &yPos, count: MemoryLayout<CGFloat>.stride)
+        var yPos = Double(y)
+        let yPosData = Data(bytes: &yPos, count: MemoryLayout<Double>.stride)
         
-        var totalLength = UInt32(MemoryLayout<UInt32>.stride) + UInt32(MemoryLayout<UInt32>.stride) + UInt32(MemoryLayout<UInt32>.stride) + UInt32(nameData!.count) + UInt32(MemoryLayout<Float>.stride) + UInt32(MemoryLayout<Float>.stride)
+        var totalLength = UInt32(MemoryLayout<UInt32>.stride) + UInt32(MemoryLayout<UInt32>.stride) + UInt32(MemoryLayout<UInt32>.stride) + UInt32(nameData!.count) + UInt32(MemoryLayout<Double>.stride) + UInt32(MemoryLayout<Double>.stride)
         
         // 消息总长度
         let totalLengthData = Data(bytes: &totalLength, count: MemoryLayout<UInt32>.stride)

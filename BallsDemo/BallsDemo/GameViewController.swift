@@ -19,10 +19,16 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         OKNetManager.sharedManager.connDelegate = self
         
-        let len1 = MemoryLayout<Float>.stride
-        let len2 = MemoryLayout<CGFloat>.stride
-
-        //        let typeBytesArr: [UInt8] = [224, 38, 94, 0]
+        var xPos = Double(-14.29188346862793)
+        let xPosData = Data(bytes: &xPos, count: MemoryLayout<Double>.stride)
+//        let xPosData = Data(buffer: UnsafeBufferPointer(start: &xPos, count: 1))
+        
+        var yPos = Double(133.60305786132812)
+        let yPosData = Data(bytes: &yPos, count: MemoryLayout<Double>.stride)
+//        let len1 = MemoryLayout<Float>.stride
+//        let len2 = MemoryLayout<CGFloat>.stride
+        
+//        let typeBytesArr: [UInt8] = [0, 0, 200, 194]
 //        let tData = Data.init(typeBytesArr)
 //        // 消息类型 200：新客户端连接  201: 坐标数据
 //        let type = UInt32(littleEndian: tData.withUnsafeBytes { $0.load(as: UInt32.self) })
@@ -31,6 +37,7 @@ class GameViewController: UIViewController {
         
 //        var len: Int = MemoryLayout<UInt>.stride
 //        print(len)
+        
     }
 
     override var shouldAutorotate: Bool {
