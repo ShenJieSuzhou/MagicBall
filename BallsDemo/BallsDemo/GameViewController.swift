@@ -19,12 +19,12 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         OKNetManager.sharedManager.connDelegate = self
         
-        var xPos = Double(-14.29188346862793)
-        let xPosData = Data(bytes: &xPos, count: MemoryLayout<Double>.stride)
+//        var xPos = Double(-14.29188346862793)
+//        let xPosData = Data(bytes: &xPos, count: MemoryLayout<Double>.stride)
 //        let xPosData = Data(buffer: UnsafeBufferPointer(start: &xPos, count: 1))
         
-        var yPos = Double(133.60305786132812)
-        let yPosData = Data(bytes: &yPos, count: MemoryLayout<Double>.stride)
+//        var yPos = Double(133.60305786132812)
+//        let yPosData = Data(bytes: &yPos, count: MemoryLayout<Double>.stride)
 //        let len1 = MemoryLayout<Float>.stride
 //        let len2 = MemoryLayout<CGFloat>.stride
         

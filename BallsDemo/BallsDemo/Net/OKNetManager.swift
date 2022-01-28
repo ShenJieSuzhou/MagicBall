@@ -111,18 +111,18 @@ extension OKNetManager: GCDAsyncSocketDelegate {
         }
         
         // 否则，解析数据
-        var bodyBytesArr: [UInt8] = Array(self.receiveData[4..<length+4])
-        let typeBytesArr: [UInt8] = Array(bodyBytesArr[0..<4])
+        let typeBytesArr: [UInt8] = Array(self.receiveData[4..<8])
         let tData = Data.init(typeBytesArr)
         // 消息类型 200：新客户端连接  201: 坐标数据
         type = UInt32(bigEndian: tData.withUnsafeBytes { $0.load(as: UInt32.self) })
-        bodyBytesArr.removeSubrange(0..<4)
+        
         if type == 200 {
+            let bodyBytesArr: [UInt8] = Array(self.receiveData[8..<length+8])
             let message: String = String(data: Data(bodyBytesArr), encoding: .utf8)!
             print(message)
 
         } else if type == 201 {
-            print(bodyBytesArr)
+//            print(bodyBytesArr)
         }
         
         // 从缓存中移除数据
