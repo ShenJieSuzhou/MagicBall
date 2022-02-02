@@ -183,32 +183,6 @@ class GameScene: SKScene {
         let dd: Data = Data(bytes: sendData, count: sendData.count)
         OKNetManager.sharedManager.sendData(content: dd)
     }
-    
-//    func selectedNodeForTouch(touchLocation: CGPoint) -> Bool{
-//        let touchedNode = self.atPoint(touchLocation)
-//        if touchedNode is SKShapeNode {
-//            if self.spinnyNode.isEqual(to: touchedNode) {
-//                if touchedNode.name == nodeName {
-//                    return true
-//                }
-//            }
-//        }
-//        return false
-//    }
-//
-//    func randomFloat(from:CGFloat, to:CGFloat) -> CGFloat {
-//      let rand:CGFloat = CGFloat(Float(arc4random()) / 0xFFFFFFFF)
-//      return (rand) * (to - from) + from
-//    }
-//
-//    func randomDirection() -> CGFloat {
-//        let speedFactor: CGFloat = 3.0
-//        if self.randomFloat(from: 0.0, to: 100.0) >= 50 {
-//          return -speedFactor
-//        } else {
-//          return speedFactor
-//        }
-//      }
 }
 
 extension GameScene: OKNetManagerStateDelegate {
