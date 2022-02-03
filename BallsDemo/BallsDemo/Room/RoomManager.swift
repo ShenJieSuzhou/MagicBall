@@ -9,14 +9,14 @@ import UIKit
 
 class RoomManager: NSObject {
 
-    var playerDataMap: [Int: [CGPoint]] = [:]
+    var playerDataMap: [String: [CGPoint]] = [:]
     
     override init() {
         super.init()
         
     }
     
-    func setPlayerData(uuid: Int, posArr: [CGPoint]) {
+    func setPlayerData(uuid: String, posArr: [CGPoint]) {
         if !self.isExisted(playerID: uuid) {
             self.playerDataMap[uuid] = posArr
         }
@@ -24,7 +24,7 @@ class RoomManager: NSObject {
     
 //    func getPlayerData(uuid: Int) ->
     
-    func isExisted(playerID: Int) -> Bool {
+    func isExisted(playerID: String) -> Bool {
         if self.playerDataMap[playerID] != nil {
             return true;
         }
@@ -33,7 +33,7 @@ class RoomManager: NSObject {
     }
     
     // 玩家进入房间
-    func enterRoom(playerId: Int) {
+    func enterRoom(playerId: String) {
         
         if self.playerDataMap[playerId] != nil {
             
@@ -44,7 +44,7 @@ class RoomManager: NSObject {
     }
     
     // 玩家离开房间
-    func leaveRoom(playerId: Int) {
+    func leaveRoom(playerId: String) {
         
     }
 }

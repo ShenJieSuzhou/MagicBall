@@ -19,6 +19,8 @@ class GameScene: SKScene {
     private var joinButton: SKSpriteNode!
     private var connectButton: SKSpriteNode!
     private var selfNode: NodeModel?
+    private var currentColor: UIColor?
+    private var isLive: Bool = false
     
     // store other player node
     private var nodeArray: [NodeModel] = []
@@ -37,10 +39,8 @@ class GameScene: SKScene {
     var count = 0
     
     override func didMove(to view: SKView) {
-        // State 回调
-        
-        self.account = "zhangsan"
-        
+
+        self.isLive = false
         OKNetManager.sharedManager.stateDelegate = self
         self.roomManager = RoomManager()
         
@@ -82,15 +82,13 @@ class GameScene: SKScene {
                 OKNetManager.sharedManager.disconnect()
                 
             } else if self.joinButton.contains(location){
-                print("+++++++++ generate new node +++++++++")
-                let random = Int(arc4random_uniform(UInt32(self.colors.count)))
-                count = count + 1
-                if count > 10 {
-                    return
+                if !isLive {
+                    print("+++++++++ generate new node +++++++++")
+                    let random = Int(arc4random_uniform(UInt32(self.colors.count)))
+                    // create particle
+                    self.selfNode = generateNewSpriteNode(id: "", name: nodeNames[random], color: colors[random])
+                    self.isLive = true
                 }
-                
-                // create particle
-                self.selfNode = generateNewSpriteNode(id: count, name: String(count), color: colors[random])
             }
         }
     }
@@ -126,9 +124,10 @@ class GameScene: SKScene {
     ///   - name: 名称
     ///   - color: 颜色
     /// - Returns: 是否成功
-    func generateNewSpriteNode(id: Int, name: String, color: UIColor) -> NodeModel{
+    func generateNewSpriteNode(id: String, name: String, color: UIColor) -> NodeModel{
+        self.account = name
         let node = SKSpriteNode(color: color, size: CGSize(width: 30, height: 30))
-        node.name = name
+        node.name = id
         node.position = CGPoint(x: -100, y: 100)
         node.physicsBody = SKPhysicsBody(circleOfRadius: 30)
         node.physicsBody?.isDynamic = true
@@ -198,7 +197,7 @@ class GameScene: SKScene {
     
     // 更新其他例子对象的坐标
     func updateOtherPlayerPosition(model: NodeModel) {
-        let id: Int = model.id
+        let id: String = model.id
         
         guard self.roomManager.isExisted(playerID: id) else {
             return
@@ -213,14 +212,14 @@ class GameScene: SKScene {
 
 extension GameScene: OKNetManagerStateDelegate {
     // 根据哈希表得到对应的线程更新坐标
-    func updateWithPosition(uuid: Int, pos: CGPoint) {
+    func updateWithPosition(uuid: String, pos: CGPoint) {
         if self.roomManager.isExisted(playerID: uuid) {
             self.roomManager.playerDataMap[uuid]?.append(pos)
         }
     }
     
     // 为每个玩家新开一个缓存并用哈希表管理
-    func newClientJoinIn(uuid: Int, account: String, color: Int) {
+    func newClientJoinIn(uuid: String, account: String, color: Int) {
         var posArr: [CGPoint] = []
         if !self.roomManager.isExisted(playerID: uuid) {
             self.roomManager.playerDataMap[uuid] = posArr
@@ -234,7 +233,7 @@ extension GameScene: OKNetManagerStateDelegate {
     }
     
     // 客户端离开
-    func clientLeave(uuid: Int) {
+    func clientLeave(uuid: String) {
         if self.roomManager.isExisted(playerID: uuid) {
             self.roomManager.playerDataMap.removeValue(forKey: uuid)
         }

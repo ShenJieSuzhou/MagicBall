@@ -15,11 +15,11 @@ protocol OKNetManagerConnDelegate {
 }
 
 protocol OKNetManagerStateDelegate {
-    func updateWithPosition(uuid: Int, pos: CGPoint)
+    func updateWithPosition(uuid: String, pos: CGPoint)
     
-    func newClientJoinIn(uuid: Int, account: String, color: Int)
+    func newClientJoinIn(uuid: String, account: String, color: Int)
     
-    func clientLeave(uuid: Int)
+    func clientLeave(uuid: String)
 }
 
 
@@ -122,15 +122,15 @@ extension OKNetManager: GCDAsyncSocketDelegate {
             print(message)
             
             // according uuid to generate paticle object
-            stateDelegate.newClientJoinIn(uuid: 0, account: "", color: 0)
+            stateDelegate.newClientJoinIn(uuid: "", account: "", color: 0)
             
         } else if type == 201 {
             // Transfer position data
-            stateDelegate.updateWithPosition(uuid: 0, pos: CGPoint(x: 0.0, y: 0.0))
+            stateDelegate.updateWithPosition(uuid: "", pos: CGPoint(x: 0.0, y: 0.0))
             
         } else if type == 202 {
             // There is a client leave my room
-            stateDelegate.clientLeave(uuid: 0)
+            stateDelegate.clientLeave(uuid: "")
         }
         
         // 从缓存中移除数据

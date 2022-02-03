@@ -9,10 +9,10 @@ import UIKit
 import SpriteKit
 
 class NodeModel: NSObject {
-    var id: Int
+    var id: String
     var node: SKSpriteNode
     
-    init(id: Int, node: SKSpriteNode) {
+    init(id: String, node: SKSpriteNode) {
         self.id = id
         self.node = node
     }
