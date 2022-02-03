@@ -28,7 +28,6 @@ class GameScene: SKScene {
     // room manager
     private var roomManager: RoomManager!
     
-    
     let BallCategory   : UInt32 = 0x1 << 0
     let BorderCategory : UInt32 = 0x1 << 4
     
@@ -85,8 +84,11 @@ class GameScene: SKScene {
                 if !isLive {
                     print("+++++++++ generate new node +++++++++")
                     let random = Int(arc4random_uniform(UInt32(self.colors.count)))
+                    let uuid = UUID().uuidString
+                    print(uuid)
+                    
                     // create particle
-                    self.selfNode = generateNewSpriteNode(id: "", name: nodeNames[random], color: colors[random])
+                    self.selfNode = generateNewSpriteNode(id: uuid, name: nodeNames[random], color: colors[random])
                     self.isLive = true
                 }
             }
