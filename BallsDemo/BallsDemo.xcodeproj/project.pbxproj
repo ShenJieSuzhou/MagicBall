@@ -21,6 +21,8 @@
 		E5E286342797EA3600211429 /* Fire.sks in Resources */ = {isa = PBXBuildFile; fileRef = E5E286322797EA3600211429 /* Fire.sks */; };
 		E5E286352797EA3600211429 /* SharpMagic.sks in Resources */ = {isa = PBXBuildFile; fileRef = E5E286332797EA3600211429 /* SharpMagic.sks */; };
 		E5E286372797EDCC00211429 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = E5E286362797EDCC00211429 /* spark.png */; };
+		F40FEBEF27AA6FBD00FC6465 /* RoomManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40FEBEE27AA6FBD00FC6465 /* RoomManager.swift */; };
+		F40FEBF427AB7A2100FC6465 /* NodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40FEBF327AB7A2100FC6465 /* NodeModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +43,8 @@
 		E5E286322797EA3600211429 /* Fire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Fire.sks; sourceTree = "<group>"; };
 		E5E286332797EA3600211429 /* SharpMagic.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SharpMagic.sks; sourceTree = "<group>"; };
 		E5E286362797EDCC00211429 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		F40FEBEE27AA6FBD00FC6465 /* RoomManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomManager.swift; sourceTree = "<group>"; };
+		F40FEBF327AB7A2100FC6465 /* NodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +88,8 @@
 		E5A7566A27915C900008CCAF /* BallsDemo */ = {
 			isa = PBXGroup;
 			children = (
+				F40FEBF027AB729D00FC6465 /* Model */,
+				F40FEBED27AA6F8800FC6465 /* Room */,
 				E5EE8A95279907D00067B022 /* Net */,
 				E5E286362797EDCC00211429 /* spark.png */,
 				E5E286322797EA3600211429 /* Fire.sks */,
@@ -107,6 +113,22 @@
 				E5901BC827990C0000D37E38 /* OKNetManager.swift */,
 			);
 			path = Net;
+			sourceTree = "<group>";
+		};
+		F40FEBED27AA6F8800FC6465 /* Room */ = {
+			isa = PBXGroup;
+			children = (
+				F40FEBEE27AA6FBD00FC6465 /* RoomManager.swift */,
+			);
+			path = Room;
+			sourceTree = "<group>";
+		};
+		F40FEBF027AB729D00FC6465 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F40FEBF327AB7A2100FC6465 /* NodeModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		FB7EE275134618F6633E4B32 /* Pods */ = {
@@ -243,6 +265,8 @@
 				E5A7567227915C900008CCAF /* GameScene.swift in Sources */,
 				E5901BC927990C0000D37E38 /* OKNetManager.swift in Sources */,
 				E5A7567427915C900008CCAF /* GameViewController.swift in Sources */,
+				F40FEBF427AB7A2100FC6465 /* NodeModel.swift in Sources */,
+				F40FEBEF27AA6FBD00FC6465 /* RoomManager.swift in Sources */,
 				E5A7566C27915C900008CCAF /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

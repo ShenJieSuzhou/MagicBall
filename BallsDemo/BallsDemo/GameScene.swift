@@ -18,7 +18,13 @@ class GameScene: SKScene {
     private var selected: Bool = false
     private var joinButton: SKSpriteNode!
     private var connectButton: SKSpriteNode!
-    private var nodeArray: [SKSpriteNode] = []
+    private var selfNode: NodeModel?
+    
+    // store other player node
+    private var nodeArray: [NodeModel] = []
+    
+    // room manager
+    private var roomManager: RoomManager!
     
     
     let BallCategory   : UInt32 = 0x1 << 0
@@ -36,6 +42,7 @@ class GameScene: SKScene {
         self.account = "zhangsan"
         
         OKNetManager.sharedManager.stateDelegate = self
+        self.roomManager = RoomManager()
         
         // 添加按钮
         joinButton = self.childNode(withName: "JoinButton") as? SKSpriteNode
@@ -54,9 +61,6 @@ class GameScene: SKScene {
         for t in touches {
             let position = t.location(in: self)
             lastTouch = position
-//            if selectedNodeForTouch(touchLocation: position) {
-//                self.selected = true
-//            }
         }
     }
     
@@ -84,9 +88,9 @@ class GameScene: SKScene {
                 if count > 10 {
                     return
                 }
-                if generateNewSpriteNode(id: String(count), name: String(count), color: colors[random]) {
-                    
-                }
+                
+                // create particle
+                self.selfNode = generateNewSpriteNode(id: count, name: String(count), color: colors[random])
             }
         }
     }
@@ -98,14 +102,22 @@ class GameScene: SKScene {
     
     
     override func update(_ currentTime: TimeInterval) {
-        if nodeArray.count == 0 {
+        // 广播坐标
+        if self.selfNode == nil {
             return
         }
-        let node = nodeArray.first!
-        print("position: x = \(node.position.x)  y = \(node.position.y)")
         
-        // socket 发送坐标
-        self.sendPositionToFriends(x: node.position.x, y: node.position.y)
+        print("position: x = \(self.selfNode!.node.position.x)  y = \(self.selfNode!.node.position.y)")
+        self.sendPositionToFriends(x: self.selfNode!.node.position.x, y: self.selfNode!.node.position.y)
+        
+        if self.nodeArray.count == 0 {
+            return
+        }
+        
+        for node in self.nodeArray {
+            // 更新其他玩家的位置
+            self.updateOtherPlayerPosition(model: node)
+        }
     }
     
     /// 生成新的节点
@@ -114,9 +126,9 @@ class GameScene: SKScene {
     ///   - name: 名称
     ///   - color: 颜色
     /// - Returns: 是否成功
-    func generateNewSpriteNode(id: String, name: String, color: UIColor) -> Bool{
+    func generateNewSpriteNode(id: Int, name: String, color: UIColor) -> NodeModel{
         let node = SKSpriteNode(color: color, size: CGSize(width: 30, height: 30))
-        node.name = id
+        node.name = name
         node.position = CGPoint(x: -100, y: 100)
         node.physicsBody = SKPhysicsBody(circleOfRadius: 30)
         node.physicsBody?.isDynamic = true
@@ -130,10 +142,10 @@ class GameScene: SKScene {
         node.addChild(fire!)
         
         self.addChild(node)
-        nodeArray.append(node)
-        
         node.physicsBody?.applyImpulse(CGVector(dx: 100, dy: 50))
-        return true
+        
+        let nodeModel = NodeModel(id: id, node: node)
+        return nodeModel
     }
     
     // 给服务器发送坐标信息
@@ -183,21 +195,68 @@ class GameScene: SKScene {
         let dd: Data = Data(bytes: sendData, count: sendData.count)
         OKNetManager.sharedManager.sendData(content: dd)
     }
+    
+    // 更新其他例子对象的坐标
+    func updateOtherPlayerPosition(model: NodeModel) {
+        let id: Int = model.id
+        
+        guard self.roomManager.isExisted(playerID: id) else {
+            return
+        }
+    
+        let posList: [CGPoint] = self.roomManager.playerDataMap[id]!
+        let skNode: SKSpriteNode = model.node
+        skNode.position = posList[0]
+        self.roomManager.playerDataMap[id]?.remove(at: 0)
+    }
 }
 
 extension GameScene: OKNetManagerStateDelegate {
     // 根据哈希表得到对应的线程更新坐标
-    func updateWithPosition(pos: CGPoint) {
-        
+    func updateWithPosition(uuid: Int, pos: CGPoint) {
+        if self.roomManager.isExisted(playerID: uuid) {
+            self.roomManager.playerDataMap[uuid]?.append(pos)
+        }
     }
     
-    // 新开一个线程并加入哈希表
-    func newClientJoinIn() {
+    // 为每个玩家新开一个缓存并用哈希表管理
+    func newClientJoinIn(uuid: Int, account: String, color: Int) {
+        var posArr: [CGPoint] = []
+        if !self.roomManager.isExisted(playerID: uuid) {
+            self.roomManager.playerDataMap[uuid] = posArr
         
+            // 创建例子
+            let color = self.getColor(color: color)
+            let node = self.generateNewSpriteNode(id: uuid, name: account, color: color)
+            // 添加到队列中
+            self.nodeArray.append(node)
+        }
     }
     
     // 客户端离开
-    func clientLeave() {
-        
+    func clientLeave(uuid: Int) {
+        if self.roomManager.isExisted(playerID: uuid) {
+            self.roomManager.playerDataMap.removeValue(forKey: uuid)
+        }
+    }
+    
+    func getColor(color: Int) -> UIColor {
+        switch color {
+        case 1:
+            return UIColor.red
+        case 2:
+            return UIColor.green
+        case 3:
+            return UIColor.blue
+        case 4:
+            return UIColor.brown
+        case 5:
+            return UIColor.cyan
+        case 6:
+            return UIColor.orange
+        default:
+            return UIColor.white
+        }
     }
 }
+
