@@ -19,7 +19,7 @@ class GameScene: SKScene {
     private var joinButton: SKSpriteNode!
     private var connectButton: SKSpriteNode!
     private var selfNode: NodeModel?
-    private var currentColor: UIColor?
+    private var currentColor: Int?
     private var isLive: Bool = false
     
     // store other player node
@@ -84,12 +84,16 @@ class GameScene: SKScene {
                 if !isLive {
                     print("+++++++++ generate new node +++++++++")
                     let random = Int(arc4random_uniform(UInt32(self.colors.count)))
+                    self.currentColor = random
                     let uuid = UUID().uuidString
                     print(uuid)
                     
                     // create particle
                     self.selfNode = generateNewSpriteNode(id: uuid, name: nodeNames[random], color: colors[random])
                     self.isLive = true
+                    
+                    // 通知服务器生成粒子
+                    self.sendPlayerInfoToOthers(uuid: uuid, account: self.account, color: random)
                 }
             }
         }
@@ -163,35 +167,81 @@ class GameScene: SKScene {
         // 发送数据缓存
         var sendData: [UInt8] = [UInt8]()
              
-        var type = UInt32(201)
+        var type = UInt32(202)
         let typeData = Data(bytes: &type, count: MemoryLayout<UInt32>.stride)
         
-        var uuid = UInt32(12345)
-        let uuidData = Data(bytes: &uuid, count: MemoryLayout<UInt32>.stride)
+        var uuid = UInt32(self.selfNode!.id.count)
+        let uuidLenData = Data(bytes: &uuid, count: MemoryLayout<UInt32>.stride)
+        let str = self.selfNode?.id
+        let uuidData = str!.data(using: .utf8)
         
         var nameLen = UInt32(self.account!.count)
         let nameLenData = Data(bytes: &nameLen, count: MemoryLayout<UInt32>.stride)
-        
         let nameData = self.account!.data(using: .utf8)
+        
+        var color = UInt32(self.currentColor!)
+        let colorData = Data(bytes: &color, count: MemoryLayout<UInt32>.stride)
         
         var xPos = Double(x)
         let xPosData = Data(bytes: &xPos, count: MemoryLayout<Double>.stride)
         
         var yPos = Double(y)
         let yPosData = Data(bytes: &yPos, count: MemoryLayout<Double>.stride)
-        
-        var totalLength = UInt32(MemoryLayout<UInt32>.stride) + UInt32(MemoryLayout<UInt32>.stride) + UInt32(MemoryLayout<UInt32>.stride) + UInt32(nameData!.count) + UInt32(MemoryLayout<Double>.stride) + UInt32(MemoryLayout<Double>.stride)
+
+        //var totalLength = UInt32(MemoryLayout<UInt32>.stride) + UInt32(MemoryLayout<UInt32>.stride) + UInt32(nameData!.count) + UInt32(MemoryLayout<UInt32>.stride) + UInt32(MemoryLayout<Double>.stride) + UInt32(MemoryLayout<Double>.stride)
+
+        var totalLength = UInt32(MemoryLayout<UInt32>.stride) + UInt32(MemoryLayout<UInt32>.stride) + UInt32(uuidData!.count) + UInt32(MemoryLayout<UInt32>.stride) + UInt32(nameData!.count) + UInt32(MemoryLayout<UInt32>.stride) + UInt32(MemoryLayout<Double>.stride) + UInt32(MemoryLayout<Double>.stride)
         
         // 消息总长度
         let totalLengthData = Data(bytes: &totalLength, count: MemoryLayout<UInt32>.stride)
         
         sendData.append(contentsOf: [UInt8](totalLengthData))
         sendData.append(contentsOf: [UInt8](typeData))
-        sendData.append(contentsOf: [UInt8](uuidData))
+        sendData.append(contentsOf: [UInt8](uuidLenData))
+        sendData.append(contentsOf: [UInt8](uuidData!))
         sendData.append(contentsOf: [UInt8](nameLenData))
         sendData.append(contentsOf: [UInt8](nameData!))
+        sendData.append(contentsOf: [UInt8](colorData))
         sendData.append(contentsOf: [UInt8](xPosData))
         sendData.append(contentsOf: [UInt8](yPosData))
+        
+        let dd: Data = Data(bytes: sendData, count: sendData.count)
+        OKNetManager.sharedManager.sendData(content: dd)
+    }
+    
+    
+    func sendPlayerInfoToOthers(uuid: String!, account: String!, color: Int) {
+        
+        // 发送数据缓存
+        var sendData: [UInt8] = [UInt8]()
+             
+        var type = UInt32(201)
+        let typeData = Data(bytes: &type, count: MemoryLayout<UInt32>.stride)
+        
+        var uuid = UInt32(self.selfNode!.id.count)
+        let uuidLenData = Data(bytes: &uuid, count: MemoryLayout<UInt32>.stride)
+        let str = self.selfNode?.id
+        let uuidData = str!.data(using: .utf8)
+        
+        var accountLen = UInt32(account.count)
+        let accountLenData = Data(bytes: &accountLen, count: MemoryLayout<UInt32>.stride)
+        let accountData = account.data(using: .utf8)
+        
+        var color = UInt32(self.currentColor!)
+        let colorData = Data(bytes: &color, count: MemoryLayout<UInt32>.stride)
+        
+        var totalLength = UInt32(MemoryLayout<UInt32>.stride) + UInt32(MemoryLayout<UInt32>.stride) + UInt32(uuidData!.count) + UInt32(MemoryLayout<UInt32>.stride) + UInt32(accountData!.count) + UInt32(MemoryLayout<UInt32>.stride)
+
+        // 消息总长度
+        let totalLengthData = Data(bytes: &totalLength, count: MemoryLayout<UInt32>.stride)
+        
+        sendData.append(contentsOf: [UInt8](totalLengthData))
+        sendData.append(contentsOf: [UInt8](typeData))
+        sendData.append(contentsOf: [UInt8](uuidLenData))
+        sendData.append(contentsOf: [UInt8](uuidData!))
+        sendData.append(contentsOf: [UInt8](accountLenData))
+        sendData.append(contentsOf: [UInt8](accountData!))
+        sendData.append(contentsOf: [UInt8](colorData))
         
         let dd: Data = Data(bytes: sendData, count: sendData.count)
         OKNetManager.sharedManager.sendData(content: dd)

@@ -120,15 +120,13 @@ extension OKNetManager: GCDAsyncSocketDelegate {
             let bodyBytesArr: [UInt8] = Array(self.receiveData[8..<length+8])
             let message: String = String(data: Data(bodyBytesArr), encoding: .utf8)!
             print(message)
-            
+        } else if type == 201 {
             // according uuid to generate paticle object
             stateDelegate.newClientJoinIn(uuid: "", account: "", color: 0)
-            
-        } else if type == 201 {
+        } else if type == 202 {
             // Transfer position data
             stateDelegate.updateWithPosition(uuid: "", pos: CGPoint(x: 0.0, y: 0.0))
-            
-        } else if type == 202 {
+        } else if type == 203 {
             // There is a client leave my room
             stateDelegate.clientLeave(uuid: "")
         }
