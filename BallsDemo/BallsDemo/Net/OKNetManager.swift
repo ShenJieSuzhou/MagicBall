@@ -121,14 +121,83 @@ extension OKNetManager: GCDAsyncSocketDelegate {
             let message: String = String(data: Data(bodyBytesArr), encoding: .utf8)!
             print(message)
         } else if type == 201 {
+            // body
+            let bodyBytesArr: [UInt8] = Array(self.receiveData[8..<length+8])
+            // uuidLen
+            let uuidLenBytesArr: [UInt8] = Array(bodyBytesArr[0..<4])
+            let uuidLenData = Data.init(uuidLenBytesArr)
+            let uuidLen: Int = Int(UInt32(bigEndian: uuidLenData.withUnsafeBytes { $0.load(as: UInt32.self) }))
+            // uuid
+            let uuidBytesArr: [UInt8] = Array(bodyBytesArr[4..<uuidLen+4])
+            let uuid: String = String(data: Data(uuidBytesArr), encoding: .utf8)!
+            // accLen
+            let accPosStart:Int = uuidLen+4
+            let accLenBytesArr: [UInt8] = Array(bodyBytesArr[accPosStart..<accPosStart+4])
+            let accLenData = Data.init(accLenBytesArr)
+            let accLen: Int = Int(UInt32(bigEndian: accLenData.withUnsafeBytes { $0.load(as: UInt32.self) }))
+            // account
+            let accBytesArr: [UInt8] = Array(bodyBytesArr[accPosStart+4..<accPosStart+4+accLen])
+            let account: String = String(data: Data(accBytesArr), encoding: .utf8)!
+            // color
+            let colorPosStart: Int = accPosStart+4+accLen
+            let colorBytesArr: [UInt8] = Array(bodyBytesArr[colorPosStart..<colorPosStart+4])
+            let colorData = Data.init(colorBytesArr)
+            let color: Int = Int(UInt32(bigEndian: colorData.withUnsafeBytes { $0.load(as: UInt32.self) }))
+            
             // according uuid to generate paticle object
-            stateDelegate.newClientJoinIn(uuid: "", account: "", color: 0)
+            stateDelegate.newClientJoinIn(uuid: uuid, account: account, color: color)
+            
         } else if type == 202 {
+            // body
+            let bodyBytesArr: [UInt8] = Array(self.receiveData[8..<length+8])
+            // uuidLen
+            let uuidLenBytesArr: [UInt8] = Array(bodyBytesArr[0..<4])
+            let uuidLenData = Data.init(uuidLenBytesArr)
+            let uuidLen: Int = Int(UInt32(bigEndian: uuidLenData.withUnsafeBytes { $0.load(as: UInt32.self) }))
+            // uuid
+            let uuidBytesArr: [UInt8] = Array(bodyBytesArr[4..<uuidLen+4])
+            let uuid: String = String(data: Data(uuidBytesArr), encoding: .utf8)!
+            // accLen
+            let accPosStart:Int = uuidLen+4
+            let accLenBytesArr: [UInt8] = Array(bodyBytesArr[accPosStart..<accPosStart+4])
+            let accLenData = Data.init(accLenBytesArr)
+            let accLen: Int = Int(UInt32(bigEndian: accLenData.withUnsafeBytes { $0.load(as: UInt32.self) }))
+            // account
+            let accBytesArr: [UInt8] = Array(bodyBytesArr[accPosStart+4..<accPosStart+4+accLen])
+            let account: String = String(data: Data(accBytesArr), encoding: .utf8)!
+            // color
+            let colorPosStart: Int = accPosStart+4+accLen
+            let colorBytesArr: [UInt8] = Array(bodyBytesArr[colorPosStart..<colorPosStart+4])
+            let colorData = Data.init(colorBytesArr)
+            let color: Int = Int(UInt32(bigEndian: colorData.withUnsafeBytes { $0.load(as: UInt32.self) }))
+            // position
+            var xPos: CGFloat = 0.0
+            var yPos: CGFloat = 0.0
+            let xposStart = colorPosStart+4
+            let xPosBytesArr: [UInt8] = Array(bodyBytesArr[xposStart..<xposStart+8])
+            let xPosData = Data.init(xPosBytesArr)
+            xPos = xPosData.withUnsafeBytes { $0.load(as: CGFloat.self) }
+            
+            let yposStart = xposStart+8
+            let yPosBytesArr: [UInt8] = Array(bodyBytesArr[yposStart..<yposStart+8])
+            let yPosData = Data.init(yPosBytesArr)
+            yPos = yPosData.withUnsafeBytes { $0.load(as: CGFloat.self) }
+            
             // Transfer position data
-            stateDelegate.updateWithPosition(uuid: "", pos: CGPoint(x: 0.0, y: 0.0))
+            stateDelegate.updateWithPosition(uuid: uuid, pos: CGPoint(x: xPos, y: yPos))
         } else if type == 203 {
+            // body
+            let bodyBytesArr: [UInt8] = Array(self.receiveData[8..<length+8])
+            // uuidLen
+            let uuidLenBytesArr: [UInt8] = Array(bodyBytesArr[0..<4])
+            let uuidLenData = Data.init(uuidLenBytesArr)
+            let uuidLen: Int = Int(UInt32(bigEndian: uuidLenData.withUnsafeBytes { $0.load(as: UInt32.self) }))
+            // uuid
+            let uuidBytesArr: [UInt8] = Array(bodyBytesArr[4..<uuidLen+4])
+            let uuid: String = String(data: Data(uuidBytesArr), encoding: .utf8)!
+            
             // There is a client leave my room
-            stateDelegate.clientLeave(uuid: "")
+            stateDelegate.clientLeave(uuid: uuid)
         }
         
         // 从缓存中移除数据
