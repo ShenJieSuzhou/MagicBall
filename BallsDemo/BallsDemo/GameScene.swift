@@ -136,13 +136,14 @@ class GameScene: SKScene {
         self.account = name
         let node = SKSpriteNode(color: color, size: CGSize(width: 30, height: 30))
         node.name = id
-        node.position = CGPoint(x: -100, y: 100)
+        node.position = CGPoint(x: 0, y: 0)
         node.physicsBody = SKPhysicsBody(circleOfRadius: 30)
         node.physicsBody?.isDynamic = true
-        node.physicsBody?.restitution = 1
+        node.physicsBody?.restitution = 0
         node.physicsBody?.categoryBitMask = BallCategory
         node.physicsBody?.contactTestBitMask = BorderCategory
         node.physicsBody?.collisionBitMask = BorderCategory
+        
         
         let fire = SKEmitterNode(fileNamed: "Fire")
         fire?.targetNode = self
@@ -266,6 +267,7 @@ class GameScene: SKScene {
         let skNode: SKSpriteNode = model.node
         print("+++++++++++++++++++++++++\(posList[0].x) , \(posList[0].y)")
         skNode.position = posList[0]
+//        skNode.run(SKAction.move(to: posList[0], duration: 0.1))
         self.roomManager.playerDataMap[id]?.remove(at: 0)
     }
 }
