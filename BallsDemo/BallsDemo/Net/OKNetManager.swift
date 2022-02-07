@@ -122,7 +122,7 @@ extension OKNetManager: GCDAsyncSocketDelegate {
             print(message)
         } else if type == 201 {
             // body
-            let bodyBytesArr: [UInt8] = Array(self.receiveData[8..<length+8])
+            let bodyBytesArr: [UInt8] = Array(self.receiveData[8..<totalLength])
             // uuidLen
             let uuidLenBytesArr: [UInt8] = Array(bodyBytesArr[0..<4])
             let uuidLenData = Data.init(uuidLenBytesArr)
@@ -149,7 +149,7 @@ extension OKNetManager: GCDAsyncSocketDelegate {
             
         } else if type == 202 {
             // body
-            let bodyBytesArr: [UInt8] = Array(self.receiveData[8..<length+8])
+            let bodyBytesArr: [UInt8] = Array(self.receiveData[8..<totalLength])
             // uuidLen
             let uuidLenBytesArr: [UInt8] = Array(bodyBytesArr[0..<4])
             let uuidLenData = Data.init(uuidLenBytesArr)
@@ -187,7 +187,7 @@ extension OKNetManager: GCDAsyncSocketDelegate {
             stateDelegate.updateWithPosition(uuid: uuid, pos: CGPoint(x: xPos, y: yPos))
         } else if type == 203 {
             // body
-            let bodyBytesArr: [UInt8] = Array(self.receiveData[8..<length+8])
+            let bodyBytesArr: [UInt8] = Array(self.receiveData[8..<totalLength])
             // uuidLen
             let uuidLenBytesArr: [UInt8] = Array(bodyBytesArr[0..<4])
             let uuidLenData = Data.init(uuidLenBytesArr)
@@ -201,7 +201,7 @@ extension OKNetManager: GCDAsyncSocketDelegate {
         }
         
         // 从缓存中移除数据
-        self.receiveData.removeSubrange(0..<length+4)
+        self.receiveData.removeSubrange(0..<totalLength)
         self.clientSocket.readData(withTimeout: -1, tag: 0)
     }
     

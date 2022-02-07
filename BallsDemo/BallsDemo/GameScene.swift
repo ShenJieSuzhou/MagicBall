@@ -90,6 +90,7 @@ class GameScene: SKScene {
                     
                     // create particle
                     self.selfNode = generateNewSpriteNode(id: uuid, name: nodeNames[random], color: colors[random])
+                    self.selfNode?.node.physicsBody?.applyImpulse(CGVector(dx: 100, dy: 50))
                     self.isLive = true
                     
                     // 通知服务器生成粒子
@@ -107,12 +108,10 @@ class GameScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         // 广播坐标
-        if self.selfNode == nil {
-            return
+        if self.selfNode != nil {
+            print("position: x = \(self.selfNode!.node.position.x)  y = \(self.selfNode!.node.position.y)")
+            self.sendPositionToFriends(x: self.selfNode!.node.position.x, y: self.selfNode!.node.position.y)
         }
-        
-        print("position: x = \(self.selfNode!.node.position.x)  y = \(self.selfNode!.node.position.y)")
-        self.sendPositionToFriends(x: self.selfNode!.node.position.x, y: self.selfNode!.node.position.y)
         
         if self.nodeArray.count == 0 {
             return
@@ -147,7 +146,6 @@ class GameScene: SKScene {
         node.addChild(fire!)
         
         self.addChild(node)
-        node.physicsBody?.applyImpulse(CGVector(dx: 100, dy: 50))
         
         let nodeModel = NodeModel(id: id, node: node)
         return nodeModel
@@ -256,6 +254,9 @@ class GameScene: SKScene {
         }
     
         let posList: [CGPoint] = self.roomManager.playerDataMap[id]!
+        if posList.count == 0 {
+            return
+        }
         let skNode: SKSpriteNode = model.node
         skNode.position = posList[0]
         self.roomManager.playerDataMap[id]?.remove(at: 0)
