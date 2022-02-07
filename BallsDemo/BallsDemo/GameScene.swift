@@ -294,17 +294,17 @@ extension GameScene: OKNetManagerStateDelegate {
     
     func getColor(color: Int) -> UIColor {
         switch color {
-        case 1:
+        case 0:
             return UIColor.red
-        case 2:
+        case 1:
             return UIColor.green
-        case 3:
+        case 2:
             return UIColor.blue
-        case 4:
+        case 3:
             return UIColor.brown
-        case 5:
+        case 4:
             return UIColor.cyan
-        case 6:
+        case 5:
             return UIColor.orange
         default:
             return UIColor.white
