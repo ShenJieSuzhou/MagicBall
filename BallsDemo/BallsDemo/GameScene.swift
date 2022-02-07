@@ -53,6 +53,9 @@ class GameScene: SKScene {
         let screenBorder = SKPhysicsBody(edgeLoopFrom: self.frame)
         screenBorder.friction = 0 /// So doesn't slow down the objects that collide
         screenBorder.restitution = 1 /// So the ball bounces when hitting the screen borders
+        screenBorder.categoryBitMask = BorderCategory
+        screenBorder.collisionBitMask = BallCategory
+        screenBorder.contactTestBitMask = BallCategory
         self.physicsBody = screenBorder
     }
     
@@ -137,6 +140,9 @@ class GameScene: SKScene {
         node.physicsBody = SKPhysicsBody(circleOfRadius: 30)
         node.physicsBody?.isDynamic = true
         node.physicsBody?.restitution = 1
+        node.physicsBody?.categoryBitMask = BallCategory
+        node.physicsBody?.contactTestBitMask = BorderCategory
+        node.physicsBody?.collisionBitMask = BorderCategory
         
         let fire = SKEmitterNode(fileNamed: "Fire")
         fire?.targetNode = self
@@ -258,6 +264,7 @@ class GameScene: SKScene {
             return
         }
         let skNode: SKSpriteNode = model.node
+        print("+++++++++++++++++++++++++\(posList[0].x) , \(posList[0].y)")
         skNode.position = posList[0]
         self.roomManager.playerDataMap[id]?.remove(at: 0)
     }
